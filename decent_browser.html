@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1 {
+        color: dodgerblue;
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-slide-content { background-size: cover; } 
+
+      .cols {
+        display: flex;
+      }
+      
+      .fifty {
+        flex: 50%;
+      }
+
+      .unquarto {
+        flex: 27%;
+      }
+
+      .trequarti {
+        flex: 70%;
+      }
+      .aligncenter { text-align: center; }
+
+      .fish1{
+        position:absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 1;
+      }
+      .fish2{
+        position:relative;
+        top: 50px;
+        left: 250px;
+        z-index: 2;
+      }
+      .fish3{
+        position:relative;
+        top: 125px;
+        left: 5px;
+        z-index: 3;
+      }
+      .fish4{
+        position: relative;
+        top: -20px;
+        left: 325px;
+        z-index: 4;
+      }
+
+      .myface{
+        position: relative;
+        top: -50px;
+        left: 40%;
+        z-index: 2;
+      }
+      h2 span { 
+       color: white; 
+       font: bold 24px/45px Helvetica, Sans-Serif; 
+       letter-spacing: -1px;  
+       background: rgb(0, 0, 0); /* fallback color */
+       background: rgba(0, 0, 0, 0.7);
+       padding: 10px; 
+      }
+      .center_2 {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+      }
+
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+count: false
+<!-- background-image: url(https://www.europeanfiles.eu/wp-content/uploads/2018/09/AI-copie-800x444.jpg) -->
+background-image: url(img/IMG_20210623_182329.jpg)
+
+background-size:cover;
+
+<h1 style="color:black;margin-top: 10pt;font-size: 48pt;" >
+  Exposure modelling using object detection and volunteered geographic information
+</h1>
+ <!---span style="line-height: 280pt;"></span !--->
+<h3 style="color: orangered;text-align: center;line-height: 30pt;font-size: 24pt ;margin-top: 40%;">
+  Pavia
+  <br>
+  16th March 2022
+</div> 
+
+---
+
+<img src="https://www.europeanfiles.eu/wp-content/uploads/2018/09/AI-copie-800x444.jpg" class="fish1">
+
+--
+
+<img src="https://www.mdpi.com/sensors/sensors-19-03014/article_deploy/html/images/sensors-19-03014-g005.png" style="width:420px;height:204px;" class="fish2">
+
+--
+
+<img src="img/img_3.jpeg" style="width:420px;height:204px;" class="fish3">
+
+--
+
+<img src="img/img_4.jpeg" class="fish4">
+
+---
+
+# Agenda  
+
+<ul style="line-height:40pt">
+  <li>Volunteered geographic information and user-generated content</li>
+  <li>Risk recap</li>  
+  <li>Deep learning recap</li>  
+  <li>My Phd recap</li>  
+  <li>Why I'm talking about transmission towers</li>  
+  <li>Me talking about transmission towers</li>
+  <li>The end</li>
+</ul>
+
+---
+
+# Volunteered Geographic Information (VGI)
+
+<center style="font-size:36px;">"_...user-generated geospatial content..._"</center>
+<br>
+<span style="margin-left:75%;">Goodchild (2007)</span>
+
+--
+
+<div style="margin-top: 20pt;">
+
+.cols[
+.unquarto[
+**Examples**  
+
+- OpenStreetMap  
+- Flickr  
+- Google Earth and Street View
+]
+
+.trequarti[
+
+<img src="img/osm_pavia.png" style="width:100%">
+
+]
+]
+
+</div>
+
+<p style="text-align: center;">
+  All social network related data fall into the UGC category
+</p>
+
+---
+
+# Risk Analysis
+
+.cols[
+.fifty[
+<img src='img/Factors-That-Influence-Risk-Include-Exposure-Vulnerability-and-Hazards.png' style="width:100%;height:100%;"> 
+]
+
+
+.fifty[
+
+<ul style="line-height:20pt">
+  <li><span style="font-weight:600;color:green">Hazard</span>: defined as the potential occurrence of a natural or human-induced physical event.</li>
+</ul>
+
+]
+]
+
+---
+
+# Risk Analysis
+
+.cols[
+.fifty[
+<img src='img/Factors-That-Influence-Risk-Include-Exposure-Vulnerability-and-Hazards.png' style="width:100%;height:100%;"> 
+]
+
+
+.fifty[
+
+<ul style="line-height:20pt">
+  <li><span style="font-weight:600;color:green">Hazard</span>: defined as the potential occurrence of a natural or human-induced physical event.</li>
+  <br>
+
+  <li><span style="font-weight:600;color:indianred">Vulnerability</span>: defined as the propensity or predisposition to be adversely affected by an hazard.</li>
+</ul>
+
+]
+]
+---
+
+
+# Risk Analysis
+
+.cols[
+.fifty[
+<img src='img/Factors-That-Influence-Risk-Include-Exposure-Vulnerability-and-Hazards.png' style="width:100%;height:100%;"> 
+]
+
+
+.fifty[
+
+<ul style="line-height:20pt">
+  <li><span style="font-weight:600;color:green">Hazard</span>: defined as the potential occurrence of a natural or human-induced physical event.</li>
+  <br>
+
+  <li><span style="font-weight:600;color:indianred">Vulnerability</span>: defined as the propensity or predisposition to be adversely affected by an hazard.</li>
+  <br>
+  
+  <li>
+    <span style="font-weight:600;color:dodgerblue">Exposure</span>: defined as the presence of people; livelihoods; species or ecosystems; environmental functions, services and resources;
+infrastructure; or economic, social or cultural assets in places and settings that could be adversely affected</li>
+</ul>
+
+]
+]
+
+---
+
+# Exposure modelling
+
+* For large areas, the general approach requires disaggregating to fine resolution coarse resolution data.
+
+  + Population data
+  + GDP data
+  + Land use area
+  + Road Density 
+
+* In smaller areas, exposure information come from different sources that are not really easy to control.
+  
+  __Example of special case__  
+
+  + NEWFRAME 
+
+---
+
+count: false
+# Exposure modelling
+
+* For large areas, the general approach requires disaggregating to fine resolution coarse resolution data.
+
+  + Population data
+  + GDP data
+  + Land use area
+  + Road Density 
+
+* In smaller areas, exposure information come from different sources that are not really easy to control.
+  
+  __Example of special case__  
+
+  + NEWFRAME 
+
+
+
+<div align="center" style="border-style: solid;border-color: dodgerblue;padding: 30pt,0,30,0;">
+  VGI and UGC bridge the gap between the two resolution 
+</div>
+
+---
+
+# Deep Learning and Computer Vision
+
+<!-- video tracking, image restoration, motion estimation  -->
+
+<p class="aligncenter">
+<img src="img/mloverview.png" alt="BigPicture ML" style="width:100%;height:50%;">
+</p>
+
+---
+
+# Object Detection
+
+**Definitions much??**
+  
+
+
+<img src="img/types.png" alt="idVSclsVSseg" style="width:100%;height:100%;">
+
+
+Objected detection is defined as the task of predicting the location of on object in an image along with the class associated to the object
+
+
+
+---
+
+# My Phd 
+
+<img src="img/myphd.png" alt="myphd" style="width:100%;height:100%;">
+
+---
+
+# My Phd 
+
+<img src="img/myphd.png" alt="myphd" style="width:100%;height:100%;z-index: 1;">
+
+<img src="http://www.iusspavia.it/documents/20181/126278/Cesarini+-+dottorando/ecf02222-e974-4eff-8d70-866cff9866ea?t=1573128731000" alt="myml" style="width:150px;height:150px;border-style:solid ;border-radius: 50%;border-color: green;border-width: 3pt;" class="myface">
+
+---
+
+
+# How I see (saw) ML
+
+<img src="img/ml_3.png" alt="myml" style="width:100%;height:100%;position: relative;">
+
+---
+
+# Motivation
+
+## Exposure modelling using object detection and volunteered geographic information
+
+The main reason was that I wanted to work with images and object detection  
+
+Still, transmission towers are vulnerable assets to several hazards like:  
+
+- Strong winds  
+- Earthquake  
+- Ice loads  
+  
+Finally, the combination of VGI, street-level imagery and DL models is rare. 
+
+---
+
+# The methodology
+
+An automated start-to-end pipeline that returns relevant features of towers
+
+<img src="img/workflow.png" alt="methodology" style="width:100%;height:100%;">
+
+
+
+---
+
+
+# OpenStreetMap
+
+<img src="img/osm.png" align = "left" width="20%">
+
+The power-grid layer of OSM contains 14 millions tower. The feature all towers have are:
+<li>id</li>
+<li>longitude and latitude</li>  
+
+There are several methods to [download the data](https://wiki.openstreetmap.org/wiki/Downloading_data)
+
+I've used the [Overpass API](https://wiki.openstreetmap.org/wiki/Overpass_API) that as reported in the wiki:
+
+<center>"One can download all data in some small area or make more advanced filtering."</center>
+
+--
+
+<img src="img/openinfrared.png" width="50%" class="fish1" style="top: 200px; left: 250px; border-style: groove;border-color: red;">
+
+<!-- <img src="https://wiki.openstreetmap.org/w/images/thumb/b/b5/Overpass_API_logo.svg/400px-Overpass_API_logo.svg.png" class="center">
+ -->
+
+---
+
+# Google Street View
+
+__The source of street-level imagery in my case__
+ 
+
+- Wonderful and easy to use (kind of) API &#128525  
+
+--
+
+- But Mama Google still wants to get paid &#x1F4B0
+  <img src="img/gsvpricing.png" />
+
+---
+
+count: false
+# Google Street View
+
+__The source of street-level imagery in my case__
+ 
+
+- Wonderful and easy to use (kind of) API &#128525  
+
+
+- But Mama Google still wants to get paid &#x1F4B0
+  <img src="img/gsvpricing.png" />
+
+- For example France has around 700k towers (iirc) &#x1F914
+
+--
+
+Which means ~ 2800€  assuming a 4$ price above 500k images  
+  
+--
+
+- Google is kind enough to provide 200$ of credit each month
+  
+<p style="text-align:center;text-decoration: underline;">
+  2800 /  200 = 14 months &#128557
+</p>
+
+
+---
+
+# Study area
+
+Around 6k towers and multiple POV
+<iframe
+  src="MapStudyArea.html"
+  style="width:100%; height:480px;"
+></iframe>
+
+---
+
+# Development of the taxonomy and training of the model
+
+<img src="img/taxonomy.png" align = "left" width="40%">
+
+.fifty[
+<p style="font-family: sans-serif;">
+  <center> 
+    <a style="font-weight: 600;">Two tasks</a>  
+    <br>
+
+    <li> Identification </li>
+    <li> Classification </li>
+ </center> 
+</p>
+
+
+<img src="img/datasets.png"  align="right" width="50%">
+
+<img src="https://miro.medium.com/max/1400/1*xVMw-joK4JGtzXfSPcTQaw.png"  align="right" width="50%"style="margin-top: 10pt;" >
+
+
+]
+
+
+---
+
+# Some results (1)
+
+<img src="img/tow4024440010_30062021_jpg.rf.775219d6caf04bf4ca4252ecb5d228f7.jpg"  class="fish1" height = "400px" style="top: 100px;">
+
+<p style="position:absolute;left: 500px;top: 100px;">
+  <span style="font-weight:700;">Mean Average Precision</span>
+  <br>   
+  Identification: 84%
+  <br>   
+  Classification: 51%
+</p>
+
+
+<img src="img/tow1390707950_jpg.rf.eb3793250ab1c1cdf201773d039f8244.jpg"  class="fish2">
+
+
+---
+
+# Some results (2)
+
+<img src='img/map.png' style="width:100%;height:100%;"> 
+
+---
+
+# Considerations/Limitations
+
+### Case-study related and more general
+
+<ul style="line-height:30pt">
+
+  <li style='font-weight: bold;color: darkseagreen;'>Fun</li>
+  
+  <li>Access to a huge amount of data</li>
+
+  <li>GSV costs and hogging of information</li>
+
+  <li>Hard to find training images</li>
+
+  <li>Obstacles in the built environment</li>
+
+  <li>Hard to find training images</li>
+
+  <li>Time consuming annotation of image (automation through supervised algorithm)</li>
+
+  <li>Object agnostic methodology</li>
+
+
+</ul>
+
+
+---
+
+# Topics I haven't touched  
+
+<ul style="line-height:30pt">
+  <li>How a neural network trains</li>
+  <li>Single stage and Two-stage detectors</li>
+  <li>Architecture of the neural network</li>
+  <li>Evaluation metrics</li>
+    <ul>
+      <li>Intersection over union</li>
+      <li>AP, AR</li>
+      <li>Small object, big object</li>
+    </ul>
+  <li>Extraction of height from an image</li>
+  <li>Photogrammetry</li>
+  <li>Depth map for height</li>
+</ul>
+
+
+
+
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      // format function
+      var slideshow = remark.create({
+        slideNumberFormat: function (current, total) {
+          if (current == 1){
+            return ''
+          }else{
+            return '' + current + ' / ' + total;
+          }
+          
+        }
+      });
+    </script>
+  </body>
+</html>
